@@ -19,94 +19,22 @@ git clone https://github.com/jaiakash/samples-java.git
 cd spring-boot-jwt
 ```
 
-## API Endpoints
+## Native Usage
 
-The following API endpoints are available:
+## Docker Usage
 
-#### Login
+To run the application with Docker, follow these steps:
 
-- POST `/users/login`
+1. Build the Docker image:
 
-  Authenticate a user and receive a JWT token.
-
-  Request Body:
-
-  ```json
-  {
-    "username": "your_username",
-    "password": "your_password"
-  }
-  ```
-
-  Response:
-
-  ```json
-  {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-  }
-  ```
-
-#### Token Verification
-
-- POST `/users/tokenVerification`
-
-  Verify the validity of a JWT token.
-
-  Request Body:
-
-  ```json
-  {
-    "token": "your_jwt_token_here"
-  }
-  ```
-
-  Response:
-
-  ```json
-  {
-    "isValid": true
-  }
-  ```
-
-## Integration with Keploy
-
-#### RECORD Mode
-
-1. To run the application, run
-
-   ```
-   keploy run -c "./mvnw spring-boot:run" --delay 240
+   ```bash
+   docker build -t spring-boot-jwt .
    ```
 
-2. To generate testcases, you can make API calls using Postman or `curl`:
+2. Run the Docker container:
 
-- Login
+   ```bash
+   docker run -p 8080:8080 spring-boot-jwt
+   ```
 
-  ```bash
-  curl --location --request POST 'http://localhost:8080/users/login' \
-  --header 'Content-Type: application/json' \
-  --data-raw '{
-    "username": "akash@example.com",
-    "password": "password"
-  }'
-  ```
-
-- Verify
-
-  ```bash
-  curl --location --request POST 'http://localhost:8080/users/verify' \
-  --header 'Content-Type: application/json' \
-  --data-raw '{
-    "token": "your_jwt_token_here"
-  }'
-  ```
-
-#### TEST mode
-
-To test the application, start Keploy in test mode. In the root directory, run the following command:
-
-```bash
-keploy test -c "./mvnw spring-boot:run" --delay 240
-```
-
-This command will run the tests and generate the report in the `Keploy/reports` directory in the current working directory.
+The application will be accessible at `http://localhost:8080`.
